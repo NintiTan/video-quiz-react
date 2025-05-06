@@ -1,9 +1,13 @@
 import { useState, useRef } from "react";
 
 const quizData = [
-  { video: "video1.mp4", question: "What color was the object?" },
-  { video: "video2.mp4", question: "How many people did you see?" },
-  { video: "video3.mp4", question: "What animal appeared?" }
+  { video: "f1s1.mov", question: "Je wilt een evenement aanmaken, hoe ga je verder?" },
+  { video: "f1s2.mov", question: "Je wilt de gegevens van het evenement invoeren, hoe ga je verder?" },
+  { video: "f1s3.mov", question: "Je bent klaar met het invoeren van de gegevens, hoe ga je verder?" },
+  { video: "f1s4.mov", question: "Je wilt beschikbare data selecteren, hoe ga je verder?" },
+  { video: "f1s5.mov", question: "Je bent klaar met data selecteren, hoe ga je verder?" },
+  { video: "f1s6.mov", question: "Je wilt het evenement delen met anderen, hoe ga je verder?" },
+  { video: "f1s6.mov", question: "Je bent klaar met het evenement, hoe ga je verder?" }
 ];
 
 export default function App() {
@@ -26,7 +30,7 @@ export default function App() {
     if (currentIndex + 1 < quizData.length) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      alert("Quiz complete! Answers: " + JSON.stringify([...answers, newAnswer]));
+      alert("Test compleet, hier zijn je antwoorden: " + JSON.stringify([...answers, newAnswer]));
     }
   };
 
