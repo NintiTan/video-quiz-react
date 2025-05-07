@@ -38,7 +38,7 @@ function App() {
       setCurrentIndex(currentIndex + 1);
       setShowQuestion(true);
     } else {
-      alert('Test complete! Here are your answers: ' + JSON.stringify([...answers, {
+      alert('Bedankt! Kun je een foto van de volgende antwoorden naar ons toe sturen? ' + JSON.stringify([...answers, {
         question: quizData[currentIndex].question,
         answer: newAnswer
       }]));
