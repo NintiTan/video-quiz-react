@@ -15,15 +15,14 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showQuestion, setShowQuestion] = useState(true);
   const [answers, setAnswers] = useState([]);
-  const [userAnswer, setUserAnswer] = useState('');
   const answerRef = useRef(null);
 
   const handleSubmit = async () => {
-    const newAnswer = userAnswer;
+    const newAnswer = answerRef.current.value;
 
     setAnswers([...answers, { question: quizData[currentIndex].question, answer: newAnswer }]);
     setShowQuestion(false);
-    if (answerRef.current) answerRef.current.checked = false;
+    answerRef.current.value = '';
 
     await fetch('/api/saveAnswer', {
       method: 'POST',
@@ -39,36 +38,32 @@ function App() {
       setCurrentIndex(currentIndex + 1);
       setShowQuestion(true);
     } else {
-      alert('Test complete! Here are your answers: ' + JSON.stringify(answers));
+      alert('Test complete! Here are your answers: ' + JSON.stringify([...answers, {
+        question: quizData[currentIndex].question,
+        answer: newAnswer
+      }]));
     }
   };
 
   return (
-    <div>
+    <div className="app">
       <h1>Quiz App</h1>
       {showQuestion && (
-        <div>
+        <div className="question-block">
+          <video width="640" height="360" controls>
+            <source src={quizData[currentIndex].video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <p>{quizData[currentIndex].question}</p>
-          <ul>
-            {(quizData[currentIndex].options || ['Ja', 'Nee']).map((option, index) => (
-              <li key={index}>
-                <label>
-                  <input
-                    type="radio"
-                    name={`question${currentIndex}`}
-                    value={option}
-                    ref={answerRef}
-                    onChange={(e) => setUserAnswer(e.target.value)}
-                  />
-                  {option}
-                </label>
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleSubmit}>Submit Answer</button>
+          <input
+            type="text"
+            placeholder="Typ je antwoord hier..."
+            ref={answerRef}
+            className="text-input"
+          />
+          <button onClick={handleSubmit}>Verstuur antwoord</button>
         </div>
       )}
-      {!showQuestion && <p>Your answer was: {userAnswer}</p>}
     </div>
   );
 }
