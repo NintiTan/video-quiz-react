@@ -24,7 +24,7 @@ function App() {
     setShowQuestion(false);
     answerRef.current.value = '';
 
-    await fetch('/api/saveAnswer', {
+    await fetch('../pages/api/saveAnswer.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
